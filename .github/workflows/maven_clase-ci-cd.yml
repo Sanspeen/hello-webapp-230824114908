@@ -5,6 +5,8 @@ name: Build and deploy JAR app to Azure Web App - clase-ci-cd
 
 on:
   push:
+    branches-ignore:
+      - maven-ci-cd-failed-by-test
     branches:
       - maven
   workflow_dispatch:
