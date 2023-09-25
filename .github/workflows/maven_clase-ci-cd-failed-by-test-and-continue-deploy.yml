@@ -24,6 +24,7 @@ jobs:
       - name: Build with Maven
         continue-on-error: true
         run: mvn package -Dmaven.test.skip=true
+          echo "::warning Test hasn't taken in consideration for this deploy"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
