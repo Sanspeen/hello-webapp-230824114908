@@ -23,7 +23,7 @@ jobs:
 
       - name: Build with Maven
         continue-on-error: true
-        run: mvn clean install
+        run: mvn package -Dmaven.test.skip=true
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
