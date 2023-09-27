@@ -12,8 +12,10 @@ on:
 jobs:
 
 
-  build:
+
+  code-coverage:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
 
@@ -21,21 +23,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '17'
-
-      - name: Build with Maven
-        run: mvn clean install
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
-
-  code-coverage:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Build with Maven
         run: mvn clean install
@@ -49,24 +36,4 @@ jobs:
             name: jacoco-report
             path: '${{ github.workspace }}/target/site/jacoco/jacoco.xml'
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: code-coverage
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: java-app
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'clase-ci-cd'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BA55D7429FE44038AEA4F4A6780770CD }}
-          package: '*.jar'
