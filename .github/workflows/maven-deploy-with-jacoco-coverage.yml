@@ -33,20 +33,22 @@ jobs:
 
   code-coverage:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Java version
-        uses: actions/setup-java@v1
-        with:
-          java-version: '17'
 
       - name: Generate Coverage Report
         run: mvn -B package --file pom.xml
 
+      - name: Upload Report
+        uses: 'actions/upload-artifact@v2'
+        with:
+            name: jacoco-report
+            path: '${{ github.workspace }}/target/site/jacoco/jacoco.xml'
+
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: code-coverage
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
