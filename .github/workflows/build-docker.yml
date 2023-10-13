@@ -1,6 +1,9 @@
 name: Build Docker Image on Success
 
 on:
+  push:
+    branches:
+      - deploy-docker
   workflow_run:
     workflows: ["Build and deploy JAR app to Azure Web App - clase-ci-cd"]
     types:
