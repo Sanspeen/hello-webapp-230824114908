@@ -26,7 +26,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t myregistry.azurecr.io/my-app:latest .
-          docker push myregistry.azurecr.io/my-app:latest
+          docker build -t dockerhellowebapp.azurecr.io/my-app:latest .
+          docker push dockerhellowebapp.azurecr.io/my-app:latest
         env:
           DOCKER_BUILDKIT: 1
