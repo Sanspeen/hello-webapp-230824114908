@@ -1,0 +1,32 @@
+name: Build Docker Image on Success
+
+on:
+  workflow_run:
+    workflows: ["Build and deploy JAR app to Azure Web App - clase-ci-cd"]
+    types:
+      - completed
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Azure Container Registry
+        run: |
+          echo ${{ secrets.ACR_PASSWORD }} | docker login myregistry.azurecr.io -u ${{ secrets.ACR_USERNAME }} --password-stdin
+        env:
+          ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+          ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t myregistry.azurecr.io/my-app:latest .
+          docker push myregistry.azurecr.io/my-app:latest
+        env:
+          DOCKER_BUILDKIT: 1
