@@ -6,7 +6,7 @@ name: Build and deploy JAR app to Azure Web App - clase-ci-cd
 on:
   push:
     branches:
-      - maven-deploy-pipeline-with-jacoco-coverage
+      - deploy-docker
   workflow_dispatch:
 
 jobs:
