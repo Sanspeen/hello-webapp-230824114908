@@ -3,7 +3,8 @@
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/spring-projects/spring-petclinic) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=7517918)
 
 
-
+# URL DEPLOYED FROM DOCKER: https://petclinic-test-docker-2.azurewebsites.net
+# DOCKER REPOSITORY: https://hub.docker.com/repository/docker/sanspeen/petclinic-test/general
 
 ## Understanding the Spring Petclinic application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
